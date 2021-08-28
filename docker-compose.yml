@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  livestream:
+    image: jasonrivers/nginx-rtmp
+    container_name: livestream
+    restart: always
+    networks:
+      - red
+    ports:
+      - "1935:1935"
+      - "8080:8080"
+    environment:
+      RTMP_STREAM_NAMES: livestream
+    volumes:
+      - ./app:/opt/nginx/html:ro
+      - ./config:/opt/nginx/conf/
+
+networks:
+  red:
+    driver: bridge
